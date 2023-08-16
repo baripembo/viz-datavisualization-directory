@@ -81,7 +81,6 @@
           <th>Status</th>
           <th>Owner</th>
           <th>Notes</th>
-          <th>Scraper</th>
           <th>Run location</th>
           <th>Schedule</th>
           <th>Duration</th>
@@ -90,11 +89,10 @@
       <tbody>
         {#each pipelineData as row}
           <tr>
-            <td>{row['Name']}</td>
+            <td><a href={row['Scraper repository']} target='_blank'>{row['Name']}</a></td>
             <td class={row['Status'].replace(/\s/g, '')}>{row['Status']}</td>
             <td><a href={row['Owner']}>{row['Owner']}</a></td>
             <td>{row['Notes']}</td>
-            <td><a href={row['Scraper repository']} target='_blank'>Scraper</a></td>
             <td>
               {#if row['Run location']}
                 {row['Run location']}
