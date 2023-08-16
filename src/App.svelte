@@ -79,7 +79,7 @@
           <tr>
             <td>{row['Name']}</td>
             <td class={row['Status'].replace(/\s/g, '')}>{row['Status']}</td>
-            <td>{row['Owner']}</td>
+            <td><a href={row['Owner']}>{row['Owner']}</a></td>
             <td>{row['Notes']}</td>
             <td><a href={row['Scraper repository']} target='_blank'>Scraper</a></td>
             <td><a href={row['Run location']} target='_blank'>Run location</a></td>
