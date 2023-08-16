@@ -16,9 +16,35 @@
     download: true,
     complete: function(results) {
       pipelineData = results.data
-      console.log(pipelineData)
     }
   })
+
+  let sortBy = {col: 'Name', ascending: true};
+  
+  $: sort = (column, data) => {
+    
+    if (sortBy.col == column) {
+      sortBy.ascending = !sortBy.ascending
+    } else {
+      sortBy.col = column
+      sortBy.ascending = true
+    }
+    
+    // Modifier to sorting function for ascending or descending
+    let sortModifier = (sortBy.ascending) ? 1 : -1;
+    
+    let sort = (a, b) => 
+      (a[column] < b[column]) 
+      ? -1 * sortModifier 
+      : (a[column] > b[column]) 
+      ? 1 * sortModifier 
+      : 0;
+    
+    if (data=='pipeline')
+      pipelineData = pipelineData.sort(sort);
+    else
+      vizData = vizData.sort(sort);
+  }
 </script>
 
 <main>
@@ -34,8 +60,8 @@
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Status</th>
+          <th on:click={sort('Name')}>Name</th>
+          <th on:click={sort('Status')}>Status</th>
           <th>Owner</th>
           <th>Notes</th>
           <th>Code</th>
@@ -48,7 +74,13 @@
           <tr>
             <td><a href={row['Link']} target='_blank'>{row['Name']}</a></td>
             <td class={row['Status'].replace(/\s/g, '')}>{row['Status']}</td>
-            <td>{row['Owner']}</td>
+            <td>
+              {#if row['Owner email']}
+                <a href="mailto:{row['Owner email']}">{row['Owner']}</a>
+              {:else}
+                {row['Owner']}
+              {/if}
+            </td>
             <td>{row['Notes']}</td>
             <td>
               {#if row['Code repository']}
@@ -77,8 +109,8 @@
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Status</th>
+          <th on:click={sort('Name', 'pipeline')}>Name</th>
+          <th on:click={sort('Status', 'pipeline')}>Status</th>
           <th>Owner</th>
           <th>Notes</th>
           <th>Run location</th>
@@ -91,7 +123,13 @@
           <tr>
             <td><a href={row['Scraper repository']} target='_blank'>{row['Name']}</a></td>
             <td class={row['Status'].replace(/\s/g, '')}>{row['Status']}</td>
-            <td><a href={row['Owner']}>{row['Owner']}</a></td>
+            <td>
+              {#if row['Owner email']}
+                <a href="mailto:{row['Owner email']}">{row['Owner']}</a>
+              {:else}
+                {row['Owner']}
+              {/if}
+            </td>
             <td>{row['Notes']}</td>
             <td>
               {#if row['Run location']}
