@@ -164,6 +164,7 @@
   table td.InDevelopment {
     color: #18998F;
     font-weight: bold;
+    text-wrap: nowrap;
   }
   table td.Retired {
     color: #F2645A;
