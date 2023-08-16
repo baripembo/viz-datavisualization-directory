@@ -132,7 +132,9 @@
             </td>
             <td>{row['Notes']}</td>
             <td>
-              {#if row['Run location']}
+              {#if row['Run URL']}
+                <a href={row['Run URL']} target='_blank'>{row['Run location']}</a>
+              {:else}
                 {row['Run location']}
               {/if}
             </td>
