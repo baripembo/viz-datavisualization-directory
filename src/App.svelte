@@ -16,6 +16,7 @@
     download: true,
     complete: function(results) {
       pipelineData = results.data
+      console.log(pipelineData)
     }
   })
 </script>
@@ -49,9 +50,21 @@
             <td class={row['Status'].replace(/\s/g, '')}>{row['Status']}</td>
             <td>{row['Owner']}</td>
             <td>{row['Notes']}</td>
-            <td><a href={row['Code repository']} target='_blank'>Code</a></td>
-            <td><a href={row['Scraper repository']} target='_blank'>Scraper</a></td>
-            <td><a href={row['Data sheet']} target='_blank'>Datasheet</a></td>
+            <td>
+              {#if row['Code repository']}
+                <a href={row['Code repository']} target='_blank'>Code</a>
+              {/if}
+            </td>
+            <td>
+              {#if row['Scraper repository']}
+                <a href={row['Scraper repository']} target='_blank'>Scraper</a>
+              {/if}
+            </td>
+            <td>
+              {#if row['Data sheet']}
+                <a href={row['Data sheet']} target='_blank'>Datasheet</a>
+              {/if}
+            </td>
           </tr>
         {/each}
       </tbody>
@@ -82,7 +95,11 @@
             <td><a href={row['Owner']}>{row['Owner']}</a></td>
             <td>{row['Notes']}</td>
             <td><a href={row['Scraper repository']} target='_blank'>Scraper</a></td>
-            <td><a href={row['Run location']} target='_blank'>Run location</a></td>
+            <td>
+              {#if row['Run location']}
+                {row['Run location']}
+              {/if}
+            </td>
             <td>{row['Schedule']}</td>
             <td>{row['Duration']}</td>
           </tr>
