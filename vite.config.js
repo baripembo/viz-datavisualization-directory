@@ -3,6 +3,6 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "./viz-datavisualization-directory",
+  base: '/viz-datavisualization-directory/',
   plugins: [svelte()]
 })
