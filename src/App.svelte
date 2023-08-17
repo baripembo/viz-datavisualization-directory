@@ -1,5 +1,7 @@
 <script>
   import Papa from 'papaparse'
+  import DataVisualizations from './pages/DataVisualizations.svelte'
+  import Pipelines from './pages/Pipelines.svelte'
 
   let vizData = [];
   Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vRqBuIYkkzFIMlq541njH9S9mO-nda40sab-AMP4tlhcWFiZt0QrcXOVS44ALJtDW17yu53vyhbUEuY/pub?gid=0&single=true&output=csv', {
@@ -19,32 +21,9 @@
     }
   })
 
-  let sortBy = {col: 'Name', ascending: true};
-  
-  $: sort = (column, data) => {
-    
-    if (sortBy.col == column) {
-      sortBy.ascending = !sortBy.ascending
-    } else {
-      sortBy.col = column
-      sortBy.ascending = true
-    }
-    
-    // Modifier to sorting function for ascending or descending
-    let sortModifier = (sortBy.ascending) ? 1 : -1;
-    
-    let sort = (a, b) => 
-      (a[column] < b[column]) 
-      ? -1 * sortModifier 
-      : (a[column] > b[column]) 
-      ? 1 * sortModifier 
-      : 0;
-    
-    if (data=='pipeline')
-      pipelineData = pipelineData.sort(sort);
-    else
-      vizData = vizData.sort(sort);
-  }
+  $: tabs = [{name: 'Data Visualizations'}, {name: 'Pipelines'}];
+  $: activeTab = 0;
+
 </script>
 
 <main>
@@ -55,102 +34,29 @@
     </a>
   </div>
 
-  <section>
-    <h2>Data Visualizations</h2>
-    <table>
-      <thead>
-        <tr>
-          <th on:click={sort('Name')}>Name</th>
-          <th on:click={sort('Status')}>Status</th>
-          <th>Owner</th>
-          <th>Notes</th>
-          <th>Code</th>
-          <th>Scraper</th>
-          <th>Datasheet</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#each vizData as row}
-          <tr>
-            <td><a href={row['Link']} target='_blank'>{row['Name']}</a></td>
-            <td class={row['Status'].replace(/\s/g, '')}>{row['Status']}</td>
-            <td>
-              {#if row['Owner email']}
-                <a href="mailto:{row['Owner email']}">{row['Owner']}</a>
-              {:else}
-                {row['Owner']}
-              {/if}
-            </td>
-            <td>{row['Notes']}</td>
-            <td>
-              {#if row['Code repository']}
-                <a href={row['Code repository']} target='_blank'>Code</a>
-              {/if}
-            </td>
-            <td>
-              {#if row['Scraper repository']}
-                <a href={row['Scraper repository']} target='_blank'>Scraper</a>
-              {/if}
-            </td>
-            <td>
-              {#if row['Data sheet']}
-                <a href={row['Data sheet']} target='_blank'>Datasheet</a>
-              {/if}
-            </td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-  </section>
+  <div class='tabs'>
+    {#each tabs as tab, idx}
+      <div class='tab' class:active={idx === activeTab} on:click={() => (activeTab = idx)}>
+        {tab.name}
+      </div>
+    {/each}
+  </div>
 
-
-  <section>
-    <h2>Pipelines</h2>
-    <table>
-      <thead>
-        <tr>
-          <th on:click={sort('Name', 'pipeline')}>Name</th>
-          <th on:click={sort('Status', 'pipeline')}>Status</th>
-          <th>Owner</th>
-          <th>Notes</th>
-          <th>Run location</th>
-          <th>Schedule</th>
-          <th>Duration</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#each pipelineData as row}
-          <tr>
-            <td><a href={row['Scraper repository']} target='_blank'>{row['Name']}</a></td>
-            <td class={row['Status'].replace(/\s/g, '')}>{row['Status']}</td>
-            <td>
-              {#if row['Owner email']}
-                <a href="mailto:{row['Owner email']}">{row['Owner']}</a>
-              {:else}
-                {row['Owner']}
-              {/if}
-            </td>
-            <td>{row['Notes']}</td>
-            <td>
-              {#if row['Run URL']}
-                <a href={row['Run URL']} target='_blank'>{row['Run location']}</a>
-              {:else}
-                {row['Run location']}
-              {/if}
-            </td>
-            <td>{row['Schedule']}</td>
-            <td>{row['Duration']}</td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-  </section>
+  {#each tabs as tab, idx}
+    {#if idx === activeTab}
+      {#if idx===0}
+        <DataVisualizations data={vizData} />
+      {:else}
+        <Pipelines data={pipelineData} />
+      {/if}
+    {/if}
+  {/each}
 
 </main>
 
 <style>
   .logo {
-    height: 4em;
+    height: 3.5em;
   }
   .header {
     display: flex;
@@ -159,17 +65,30 @@
     margin-left: auto;
     margin-top: auto;
   }
-  table td.Active {
-    color: #0063B3;
-    font-weight: bold;
+  .tabs {
+    border-bottom: 3px solid #EEE;
+    display: flex;
+    flex-flow: row;
+    height: 50px;
+    margin-top: 30px;
+    justify-content: center;
   }
-  table td.InDevelopment {
-    color: #18998F;
+  .tab {
+    border-bottom: 3px solid #EEE;
+    color: #999;
+    cursor: pointer;
+    font-size: 18px;
     font-weight: bold;
-    text-wrap: nowrap;
+    line-height: 50px;
+    height: 50px;
+    padding: 0 32px;
   }
-  table td.Retired {
-    color: #F2645A;
-    font-weight: bold;
+  .tab.active {
+    border-bottom: 3px solid #F05449;
+    color: #000;
+  }
+  .tab:hover {
+    border-bottom: 3px solid #F05449;
+    color: #000;
   }
 </style>

@@ -1,5 +1,5 @@
 :root {
-  font-family: 'Source Sans Pro', serif;
+  font-family: 'Source Sans 3', sans-serif;
   font-size: 14px;
   line-height: 22px;
   font-weight: 400;
@@ -29,7 +29,7 @@ body {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 1.8em;
   line-height: 1.1;
 }
 h2 {
@@ -43,7 +43,7 @@ h2 {
 }
 
 section {
-  margin: 50px 0;
+  margin: 30px 0;
 }
 
 table {
@@ -62,9 +62,28 @@ table th {
   text-align: left;
   text-transform: uppercase;
 }
+table th.sortable {
+  cursor: pointer;
+}
+table td.Active {
+  color: #1BB580;
+  font-weight: bold;
+}
+table td.InDevelopment {
+  color: #007CE0;
+  font-weight: bold;
+  text-wrap: nowrap;
+}
+table td.Retired {
+  color: #F2645A;
+  font-weight: bold;
+}
+table td.NeedsReview {
+  color: #F7A29C;
+  font-weight: bold;
+}
 
 button {
-  border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
@@ -80,4 +99,14 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.icon-sort::before {
+  content: url('icons/sort-solid.svg');
+  max-height: 17px;
+  width: 17px;
+  transform: scale(0.5);
+  /*filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);*/
+  position: absolute;
+  transform-origin: center top;
 }
