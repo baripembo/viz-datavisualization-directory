@@ -33,6 +33,7 @@
       <img src="images/centreforHumdata_green_TransparentBG.png" class="logo" alt="Centre for Humanitarian Data Logo" />
     </a>
   </div>
+  <a href='https://docs.google.com/spreadsheets/d/1T_ylCD9j6BYnz6T1uBmRHv0ftz0zLTQLTYucJgYiTZ4' target='_blank'>DIRECTORY DATA</a>
 
   <div class='tabs'>
     {#each tabs as tab, idx}
