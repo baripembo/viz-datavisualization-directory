@@ -35,8 +35,8 @@
         <th class='sortable' on:click={sort('Status')}>Status <i class='icon-sort'></i></th>
         <th>Owner</th>
         <th>Notes</th>
-        <th>Date created</th>
-        <th>Date retired</th>
+        <th class='sortable' on:click={sort('Date created')}>Date created <i class='icon-sort'></i></th>
+        <th class='sortable' on:click={sort('Date retired')}>Date retired <i class='icon-sort'></i></th>
         <th>Code</th>
         <th>Scraper</th>
         <th>Datasheet</th>
