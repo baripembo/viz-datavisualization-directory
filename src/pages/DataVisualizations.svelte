@@ -1,8 +1,9 @@
 <script>
+  import { onMount } from 'svelte';
   //import { sort } from '../lib/Sort.svelte';
   export let data
   
-  let sortBy = {col: 'Name', ascending: true};
+  let sortBy = {col: 'Date created', ascending: true};
   
   $: sort = (column) => {
     
@@ -25,6 +26,10 @@
     
       data = data.sort(sort);
   }
+
+  onMount(() => {
+    sort('Date created');
+  })
 </script>
 
 <section>

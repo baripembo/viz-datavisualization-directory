@@ -1,7 +1,9 @@
 <script>
+  import { onMount } from 'svelte';
+  
   export let data
   
-  let sortBy = {col: 'Name', ascending: true};
+  let sortBy = {col: 'Date created', ascending: true};
   
   $: sort = (column) => {
     
@@ -24,6 +26,10 @@
     
       data = data.sort(sort);
   }
+
+  onMount(() => {
+    sort('Date created');
+  })
 </script>
 
 <section>
@@ -34,8 +40,8 @@
         <th class='sortable' on:click={sort('Status')}>Status <i class='icon-sort'></i></th>
         <th>Owner</th>
         <th>Notes</th>
-        <th>Date created</th>
-        <th>Date retired</th>
+        <th class='sortable' on:click={sort('Date created')}>Date created <i class='icon-sort'></i></th>
+        <th class='sortable' on:click={sort('Date retired')}>Date retired <i class='icon-sort'></i></th>
         <th>Run location</th>
         <th>Schedule</th>
         <th>Duration</th>
