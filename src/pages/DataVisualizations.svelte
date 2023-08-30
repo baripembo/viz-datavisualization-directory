@@ -35,6 +35,8 @@
         <th class='sortable' on:click={sort('Status')}>Status <i class='icon-sort'></i></th>
         <th>Owner</th>
         <th>Notes</th>
+        <th>Date created</th>
+        <th>Date retired</th>
         <th>Code</th>
         <th>Scraper</th>
         <th>Datasheet</th>
@@ -53,6 +55,8 @@
             {/if}
           </td>
           <td>{row['Notes']}</td>
+          <td>{row['Date created']}</td>
+          <td>{row['Date retired']}</td>
           <td>
             {#if row['Code repository']}
               <a href={row['Code repository']} target='_blank'>Code</a>
