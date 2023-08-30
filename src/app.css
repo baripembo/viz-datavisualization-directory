@@ -61,6 +61,7 @@ table th {
   background-color: #FFF;
   text-align: left;
   text-transform: uppercase;
+  vertical-align: bottom;
 }
 table th.sortable {
   cursor: pointer;
