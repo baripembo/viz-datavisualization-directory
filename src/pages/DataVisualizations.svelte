@@ -28,7 +28,9 @@
   }
 
   onMount(() => {
+    console.log('am i here')
     sort('Date created');
+    console.log(data)
   })
 </script>
 

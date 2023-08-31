@@ -57,6 +57,9 @@ table td, th {
 table tr:nth-child(odd) {
   background-color: #F2F2F2;
 }
+table tr:hover {
+  background-color: #CCE5F9;
+}
 table th {
   background-color: #FFF;
   text-align: left;
