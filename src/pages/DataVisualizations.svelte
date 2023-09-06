@@ -28,9 +28,7 @@
   }
 
   onMount(() => {
-    console.log('am i here')
     sort('Date created');
-    console.log(data)
   })
 </script>
 
@@ -52,7 +50,13 @@
     <tbody>
       {#each data as row}
         <tr>
-          <td><a href={row['Link']} target='_blank'>{row['Name']}</a></td>
+          <td>
+            {#if row['Link']}
+              <a href={row['Link']} target='_blank'>{row['Name']}</a>
+            {:else}
+              {row['Name']}
+            {/if}
+          </td>
           <td class={row['Status'].replace(/\s/g, '')}>{row['Status']}</td>
           <td>
             {#if row['Owner email']}
