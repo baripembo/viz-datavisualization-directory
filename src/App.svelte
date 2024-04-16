@@ -22,13 +22,13 @@
   })
 
   $: tabs = [{name: 'Data Visualizations'}, {name: 'Pipelines'}];
-  $: activeTab = 0;
+  $: activeTab = 1;
 
 </script>
 
 <main>
   <div class='header'>
-    <h1>Data Visualization and Pipeline Directory</h1>
+    <h1>Data Systems Directory</h1>
     <a href="https://centre.humdata.org" target="_blank" rel="noreferrer"> 
       <img src="images/centreforHumdata_green_TransparentBG.png" class="logo" alt="Centre for Humanitarian Data Logo" />
     </a>
