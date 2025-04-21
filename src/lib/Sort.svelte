@@ -1,14 +1,11 @@
 <script context="module">
-	let sortBy = {col: 'Name', ascending: true};
-  
-  export function sort(data, column) {
-  	console.log('sort', data, column)
-    if (sortBy.col == column) {
-      sortBy.ascending = !sortBy.ascending
-    } else {
-      sortBy.col = column
-      sortBy.ascending = true
-    }
+  export function sort(data, column, sortBy) {
+    // if (sortBy.col == column) {
+    //   sortBy.ascending = !sortBy.ascending
+    // } else {
+    //   sortBy.col = column
+    //   sortBy.ascending = true
+    // }
     
     // Modifier to sorting function for ascending or descending
     let sortModifier = (sortBy.ascending) ? 1 : -1;
